@@ -13,7 +13,9 @@ def movie_review(name):
     Input: the name of a movie
     Output: a string (one of the review options), selected at random using randint
     """
-    return ...
+    from  random import randint
+
+    return name[randint(0,len(name)-1)]
 
 
 
@@ -32,9 +34,11 @@ def makeInverseIndex(strlist):
     >>> makeInverseIndex(['hello world','hello','hello cat','hellolot of cats']) == {'hello': {0, 1, 2}, 'cat': {2}, 'of': {3}, 'world': {0}, 'cats': {3}, 'hellolot': {3}}
     True
     """
-    pass
-
-
+    Dict = {}
+    tmplist = list(enumerate(strlist))
+    dict1 = {b:a for (a,b) in tmplist}
+    for x in dict1: 
+        print({z:dict[x] for z in x.split()})
 
 ## 3: (Task 3) Or Search
 def orSearch(inverseIndex, query):
