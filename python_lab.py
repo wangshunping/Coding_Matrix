@@ -7,7 +7,7 @@ coursera = 1
 
 
 ## 1: (Task 1) Minutes in a Week
-minutes_in_week = ...
+minutes_in_week = 7*24*60
 
 
 
@@ -30,7 +30,7 @@ expression_val = 1
 
 
 ## 5: (Task 5) Squares Set Comprehension
-first_five_squares = { 2*x for x in {1,2,3,4,5} }
+first_five_squares = { x**2 for x in {1,2,3,4,5} }
 
 
 
@@ -52,8 +52,8 @@ Y1 = { 10, 100, 1 }
 # Assign disjoint three-element sets to X1 and Y1 so that
 # {x*y for x in X1 for y in Y1} evaluates to a five-element set.
 
-X2 = { 1, 2, 4 }
-Y2 = { 0, 1, 2 }
+X2 = { 1, 3, 9 }
+Y2 = { 2, 6, 18 }
 
 
 
@@ -61,7 +61,7 @@ Y2 = { 0, 1, 2 }
 S = {1, 2, 3, 4}
 T = {3, 4, 5, 6}
 # Replace { ... } with a one-line set comprehension that evaluates to the intersection of S and T
-S_intersect_T = { x for x in S if x>3 }
+S_intersect_T = {x for x in S if x in  T}
 
 
 
@@ -98,14 +98,14 @@ zero_sum_list = [(x,y,z) for x in S for y in S for z in S if x+y+z==0]
 ## 14: (Task 14) Nontrivial three-element tuples summing to zero
 S = {-4, -2, 1, 2, 5, 0}
 # Replace [ ... ] with a one-line list comprehension in which S appears
-excilude_zero_list = [(x,y,z) for x in S for y in S for z in S if(x+y+z==0 | x*y+x*z+y*z!=0)]
+exclude_zero_list = [(x,y,z) for x in S for y in S for z in S if  x+y+z==0 if x*y+x*z+y*z!=0]
 
 
 
 ## 15: (Task 15) One nontrivial three-element tuple summing to zero
 S = {-4, -2, 1, 2, 5, 0}
 # Replace ... with a one-line expression that uses a list comprehension in which S appears
-first_of_tuples_list = [(x,y,z) for x in S for y in S for z in S if(x+y+z==0 | x*y+x*z+y*z!=0)][0]
+first_of_tuples_list = [(x,y,z) for x in S for y in S for z in S if  x+y+z==0 if x*y+x*z+y*z!=0][0]
 
 
 
@@ -123,10 +123,10 @@ odd_num_list_range = {x for x in range(100) if x%2==1}
 
 ## 18: (Task 18) Using range and zip
 # In the line below, replace ... with an expression that does not include a comprehension.
+L=['A','B','C','D','E']
 # Instead, it should use zip and range.
 # Note: zip() does not return a list. It returns an 'iterator of tuples'
-L=['A','B','C','D','E']
-range_and_zip = list(zip([x for x in range(5)],L))
+range_and_zip = list(zip(range(5),L))
 
 
 
@@ -153,9 +153,10 @@ value_list = [x['James'] for x in dlist]
 dlist = [{'Bilbo':'Ian','Frodo':'Elijah'},{'Bilbo':'Martin','Thorin':'Richard'}]
 k = 'Bilbo'
 #Replace [...] with a one-line comprehension
-value_list_modified_1 = [x.get(k,’NOT PRESENT’) for x in dlist] # <-- Use the same expression here
-k = 'Frodo'
-value_list_modified_2 = [x.get(k,’NOT PRESENT’) for x in dlist] # <-- as you do here
+#value_list_modified_1 = [x.get(k,’NOT PRESENT’) for x in dlist] # <-- Use the same expression here
+value_list_modified_1 = [x[k]  if k in x else 'NOT PRESENT' for x in dlist] # <-- Use the same expression here
+k1 = 'Frodo'
+value_list_modified_2 = [x[k1]  if k1 in x else 'NOT PRESENT' for x in dlist] # <-- as you do here
 
 
 
@@ -168,7 +169,7 @@ square_dict = {k:k**2 for k in range(100)}
 ## 23: (Task 23) Making the identity function
 D = {'red','white','blue'}
 # Replace {...} with a one-line dictionary comprehension
-identity_dict = {k:v for k in D for v in range(3)}
+identity_dict = {k:k for k in D}
 
 
 
@@ -178,27 +179,27 @@ digits = set(range(base))
 # Replace { ... } with a one-line dictionary comprehension
 # Your comprehension should use the variables 'base' and 'digits' so it will work correctly if these
 # are assigned different values (e.g. base = 2 and digits = {0,1})
-representation_dict = { ... }
+representation_dict = {a*base**2+b*base+c:(a,b,c) for a in digits for b in digits for c in digits}
 
 
 
 ## 25: (Task 25) A dictionary mapping names to salaries
-id2salary = {0:1000.0, 1:1200.50, 2:990}
-names = ['Larry', 'Curly', 'Moe']
+id2salary = {0:1000.0, 1:1200.50, 3:990}
+names = ['Larry', 'Curly','','Moe']
 # Replace { ... } with a one-line dictionary comprehension that uses id2salary and names.
-listdict2dict = { ... }
+listdict2dict = {names[k]:id2salary[k] for k in id2salary.keys()}
 
 
 
 ## 26: (Task 26) Procedure nextInts
 # Complete the procedure definition by replacing [ ... ] with a one-line list comprehension
-def nextInts(L): return [ ... ]
+def nextInts(L): return [x+1 for x in L]
 
 
 
 ## 27: (Task 27) Procedure cubes
 # Complete the procedure definition by replacing [ ... ] with a one-line list comprehension
-def cubes(L): return [ ... ]
+def cubes(L): return [x**3 for x in L]
 
 
 
@@ -207,7 +208,7 @@ def cubes(L): return [ ... ]
 # Output: the list L such that L[i] is the value associated in dct with keylist[i]
 # Example: dict2list({'a':'A', 'b':'B', 'c':'C'},['b','c','a']) should equal ['B','C','A']
 # Complete the procedure definition by replacing [ ... ] with a one-line list comprehension
-def dict2list(dct, keylist): return [ ... ]
+def dict2list(dct, keylist): return [ dct[x] for x in keylist]
 
 
 
@@ -216,5 +217,5 @@ def dict2list(dct, keylist): return [ ... ]
 # Output: the dictionary that maps keylist[i] to L[i] for i=0,1,...len(L)-1
 # Example: list2dict(['A','B','C'],['a','b','c']) should equal {'a':'A', 'b':'B', 'c':'C'}
 # Complete the procedure definition by replacing { ... } with a one-line dictionary comprehension
-def list2dict(L, keylist): return { ... }
+def list2dict(L, keylist): return {k:v for (k,v) in zip(keylist,L) }
 
