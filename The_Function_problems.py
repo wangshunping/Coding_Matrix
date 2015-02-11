@@ -64,9 +64,9 @@ def row(p, n):
     '''
     return [p+x for x in range(n)]
 
-comprehension_with_row = [row(x*15,15) for x in range(0,20)]
+comprehension_with_row = [row(x*20,20) for x in range(0,15)]
 
-comprehension_without_row = [[x*15+y for y in range(15)] for x in range(0,20)]
+comprehension_without_row = [[x*20+y for y in range(20)] for x in range(0,15)]
 
 
 
