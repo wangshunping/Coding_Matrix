@@ -26,11 +26,13 @@ def tuple_sum(A, B):
         [sum(y) for y in x]
     '''
     import operator
-    strlist = []
-    for i in range(len(A)):
+#    strlist = []
+#    for i in range(len(A)):
 
-        strlist.append(tuple(map(operator.add,A[i],B[i]))  )
-    return strlist
+        #strlist.append(tuple(map(operator.add,A[i],B[i]))  )
+#        strlist.append(tuple(map(sum,zip(A[i],B[i])))  )
+#    return strlist
+    [tuple(map(sum,zip(a,b))) for a,b in zip(A,B)]
 
 ## 2: (Problem 2) Inverse Dictionary
 def inv_dict(d):
