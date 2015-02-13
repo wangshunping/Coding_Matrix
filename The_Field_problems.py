@@ -20,7 +20,10 @@ def myFilter(L, num):
       >>> myFilter([10,15,20,25],10)
       [15, 25]
     '''
-    pass
+    max = L[len(L)-1]
+    q = [num*x for x in range(100)]
+    qwe = set(L).difference(q)
+    return qwe
 
 
 
@@ -33,7 +36,12 @@ def my_lists(L):
     >>> my_lists([0,3])
     [[], [1, 2, 3]]
     '''
-    pass
+    def getList(inlst):
+        a = []
+        for x in range(inlst):
+            a.append(x)
+        return a
+    return  list(map(getList,L))
 
 
 
@@ -56,8 +64,7 @@ def myFunctionComposition(f, g):
       >>> myFunctionComposition(a,b) == {'x':'twentyfour','y':'twentyfive'}
       True
     '''
-    pass
-
+    return {x:g[f[x]] for x in f.keys()}
 
 
 ## 4: (Problem 4) Summing numbers in a list
@@ -74,7 +81,7 @@ Be sure your procedure works for the empty list.
       >>> mySum([3,5,10])
       18
     '''
-    pass
+    return sum(L)
 
 
 
@@ -92,7 +99,10 @@ Be sure your procedure works for the empty list.
       >>> myProduct([-3,2,4])
       -24
     '''
-    pass
+    base=1
+    for x in range(len(L)):
+        base*=L[x]
+    return base
 
 
 
@@ -111,7 +121,8 @@ Hint: The value of the Python expression float('infinity') is infinity.
     >>> myMin([0,3,5,-2,-5])
     -5
     '''
-    pass
+    L.sort()
+    return  L[0]
 
 
 
@@ -129,7 +140,9 @@ Be sure your procedure works for the empty list.
     >>> myConcat(['what','is','up'])
     'whatisup'
     '''
-    pass
+    for x in L:
+        str += x
+    return str
 
 
 
@@ -147,17 +160,19 @@ Be sure your procedure works for the empty list.
     >>> myUnion([set(),{3,5},{3,5}])
     {3, 5}
     '''
-    pass
+    for x in L:
+        q = q | x
+    return q
 
 
 
 ## 9: (Problem 9) Complex Addition Practice
 # Each answer should be a Python expression whose value is a complex number.
 
-complex_addition_a = ...
-complex_addition_b = ...
-complex_addition_c = ...
-complex_addition_d = ...
+complex_addition_a = 5+3j
+complex_addition_b = 1j
+complex_addition_c = -1 + 0.001j
+complex_addition_d = 0.001 + 9j
 
 
 
@@ -176,12 +191,12 @@ def transform(a, b, L):
     >>> transform(3,2,[1,2,3])
     [5, 8, 11]
     '''
-    pass
+    [a*x+b for x in L]
 
 
 
 ## 11: (Problem 11) GF(2) Arithmetic
-GF2_sum_1 = ... # answer with 0 or 1
-GF2_sum_2 = ...
-GF2_sum_3 = ...
+GF2_sum_1 = 11 # answer with 0 or 1
+GF2_sum_2 = 10
+GF2_sum_3 = 110
 
