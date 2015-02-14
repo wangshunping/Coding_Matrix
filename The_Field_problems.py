@@ -39,7 +39,7 @@ def my_lists(L):
     def getList(inlst):
         a = []
         for x in range(inlst):
-            a.append(x)
+            a.append(x+1)
         return a
     return  list(map(getList,L))
 
@@ -140,6 +140,7 @@ Be sure your procedure works for the empty list.
     >>> myConcat(['what','is','up'])
     'whatisup'
     '''
+    str=""
     for x in L:
         str += x
     return str
@@ -160,6 +161,7 @@ Be sure your procedure works for the empty list.
     >>> myUnion([set(),{3,5},{3,5}])
     {3, 5}
     '''
+    q= set()
     for x in L:
         q = q | x
     return q
@@ -191,12 +193,12 @@ def transform(a, b, L):
     >>> transform(3,2,[1,2,3])
     [5, 8, 11]
     '''
-    [a*x+b for x in L]
+    return [a*x+b for x in L]
 
 
 
 ## 11: (Problem 11) GF(2) Arithmetic
-GF2_sum_1 = 11 # answer with 0 or 1
-GF2_sum_2 = 10
-GF2_sum_3 = 110
+GF2_sum_1 = 1 # answer with 0 or 1
+GF2_sum_2 = 0
+GF2_sum_3 = 0
 
