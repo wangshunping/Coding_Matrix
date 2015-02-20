@@ -30,8 +30,8 @@ p2_v_plus_two_u = [0,1,7]
 
 ## 3: (Problem 3) Vector Addition Practice 3
 # Write your answer using GF2's one instead of the number 1
-p3_vector_sum_1 = [1,0,0]
-p3_vector_sum_2 = [0,1,1]
+p3_vector_sum_1 = [one,0,0]
+p3_vector_sum_2 = [0,one,one]
 
 
 

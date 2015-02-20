@@ -20,11 +20,10 @@ def myFilter(L, num):
       >>> myFilter([10,15,20,25],10)
       [15, 25]
     '''
-    max = L[len(L)-1]
-    q = [num*x for x in range(100)]
-    qwe = set(L).difference(q)
-    return qwe
+    filteritem = [num*(n+1) for n in range(max(L)//num)]
 
+    #return list(set(L).difference(set(filteritem)))
+    return sorted(list(set(L) - set(filteritem)))
 
 
 ## 2: (Problem 2) Python Comprehensions: Lists of Lists

@@ -34,11 +34,23 @@ def makeInverseIndex(strlist):
     >>> makeInverseIndex(['hello world','hello','hello cat','hellolot of cats']) == {'hello': {0, 1, 2}, 'cat': {2}, 'of': {3}, 'world': {0}, 'cats': {3}, 'hellolot': {3}}
     True
     """
-    Dict = {}
-    tmplist = list(enumerate(strlist))
-    dict1 = {b:a for (a,b) in tmplist}
-    for x in dict1: 
-        print({z:dict[x] for z in x.split()})
+    '''
+    liststr = []
+    for x in strlist:
+        liststr.extend(list(x.split()))
+    list(set(liststr))
+    tmpdic = {x:{} for x in liststr}
+    print tmpdic
+    for num,x in enumerate(strlist):
+        for y in list(x.split()):
+            tmpdic[y].add(num)
+    print tmpdic
+    '''
+    tmpDic = {}
+    for num,x in enumerate(strlist):
+        for tmp in x.split():
+            tmpDic[tmp]=tmpDic.get(tmp,{num}) | {num}
+    return tmpDic
 
 ## 3: (Task 3) Or Search
 def orSearch(inverseIndex, query):
@@ -46,14 +58,18 @@ def orSearch(inverseIndex, query):
     Input: an inverse index, as created by makeInverseIndex, and a list of words to query
     Output: the set of document ids that contain _any_ of the specified words
     Feel free to use a loop instead of a comprehension.
-    
+
     >>> idx = makeInverseIndex(['Johann Sebastian Bach', 'Johannes Brahms', 'Johann Strauss the Younger', 'Johann Strauss the Elder', ' Johann Christian Bach',  'Carl Philipp Emanuel Bach'])
     >>> orSearch(idx, ['Bach','the'])
     {0, 2, 3, 4, 5}
     >>> orSearch(idx, ['Johann', 'Carl'])
     {0, 2, 3, 4, 5}
     """
-    pass
+    tmpset = set()
+    for x in query:
+        tmpset =  set(inverseIndex[x]) | tmpset
+    return tmpset
+
 
 
 
@@ -70,5 +86,8 @@ def andSearch(inverseIndex, query):
     >>> andSearch(idx, ['Johann', 'Bach'])
     {0, 4}
     """
-    pass
-
+    if len(query) > 0:
+        tmp = inverseIndex[query[0]]
+    for x in query:
+        tmp = tmp & inverseIndex[x]
+    return tmp

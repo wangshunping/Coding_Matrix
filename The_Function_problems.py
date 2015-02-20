@@ -78,4 +78,4 @@ Pr_f_is_odd  = 0.3
 
 ## 5: (Problem 5) Probability Exercise 2
 Pr_g_is_1    = 0.4
-Pr_g_is_0or2 = 0.3
+Pr_g_is_0or2 = 0.6
