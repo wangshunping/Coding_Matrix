@@ -37,9 +37,8 @@ def create_voting_dict(strlist):
     The lists for each senator should preserve the order listed in voting data.
     In case you're feeling clever, this can be done in one line.
     """
-    pass
-
-
+    tmpDic = {x.split()[0]:x.split()[3:]   for x in strlist}
+    return {x:[int(y) for y in tmpDic[x]] for x in tmpDic}
 
 ## 2: (Task 2.12.2) Policy Compare
 def policy_compare(sen_a, sen_b, voting_dict):
@@ -59,8 +58,7 @@ def policy_compare(sen_a, sen_b, voting_dict):
 
     You should definitely try to write this in one line.
     """
-    pass
-
+    return sum([x*y for x,y in zip(voting_dict[sen_a],voting_dict[sen_b])])
 
 
 ## 3: (Task 2.12.3) Most Similar
@@ -78,10 +76,16 @@ def most_similar(sen, voting_dict):
 
     Note that you can (and are encouraged to) re-use you policy_compare procedure.
     """
+    '''
+    tmpDic = {x:abs(policy_compare(sen,x,voting_dict))    for x in voting_dict if x != sen}
+    print(tmpDic)
 
-    return ""
 
-
+    qwe = tmpDic[min(tmpDic)]
+    return [x for x in tmpDic if tmpDic[x] == qwe]
+    '''
+    tmpDic = {abs(policy_compare(sen,x,voting_dict)):x    for x in voting_dict if x != sen}
+    return tmpDic[min(tmpDic.keys())]
 
 ## 4: (Task 2.12.4) Least Similar
 def least_similar(sen, voting_dict):
@@ -95,13 +99,14 @@ def least_similar(sen, voting_dict):
         >>> least_similar('a', vd)
         'c'
     """
-    pass
+    tmpDic = {abs(policy_compare(sen,x,voting_dict)):x    for x in voting_dict if x != sen}
+    return tmpDic[min(tmpDic.keys())]
 
 
 
 ## 5: (Task 2.12.5) Chafee, Santorum
-most_like_chafee    = ''
-least_like_santorum = ''
+most_like_chafee    = 'Sununu'
+least_like_santorum = 'Feingold'
 
 
 
@@ -115,9 +120,13 @@ def find_average_similarity(sen, sen_set, voting_dict):
         >>> find_average_similarity('Klein', {'Fox-Epstein','Ravella'}, vd)
         -0.5
     """
-    return ...
 
-most_average_Democrat = ... # give the last name (or code that computes the last name)
+    tmpDic = sum([policy_compare(sen,x,voting_dict) for x in sen_set])
+    length = len(sen_set)
+
+    return tmpDic/length
+
+most_average_Democrat = 'Biden' # give the last name (or code that computes the last name)
 
 
 
@@ -139,9 +148,11 @@ def find_average_record(sen_set, voting_dict):
         >>> find_average_record({'a'}, d)
         [0.0, 1.0, 1.0]
     """
-    return ...
+    tmplist = [sum(x) for x in zip(*[voting_dict[x] for x in sen_set])]
+    length = len(sen_set)
+    return [x/length for x in tmplist]
 
-average_Democrat_record = ... # give the vector as a list
+average_Democrat_record = [-0.16279069767441862, -0.23255813953488372, 1.0, 0.8372093023255814, 0.9767441860465116, -0.13953488372093023, -0.9534883720930233, 0.813953488372093, 0.9767441860465116, 0.9767441860465116, 0.9069767441860465, 0.7674418604651163, 0.6744186046511628, 0.9767441860465116, -0.5116279069767442, 0.9302325581395349, 0.9534883720930233, 0.9767441860465116, -0.3953488372093023, 0.9767441860465116, 1.0, 1.0, 1.0, 0.9534883720930233, -0.4883720930232558, 1.0, -0.32558139534883723, -0.06976744186046512, 0.9767441860465116, 0.8604651162790697, 0.9767441860465116, 0.9767441860465116, 1.0, 1.0, 0.9767441860465116, -0.3488372093023256, 0.9767441860465116, -0.4883720930232558, 0.23255813953488372, 0.8837209302325582, 0.4418604651162791, 0.9069767441860465, -0.9069767441860465, 1.0, 0.9069767441860465, -0.3023255813953488] # give the vector as a list
 
 
 
@@ -158,5 +169,15 @@ def bitter_rivals(voting_dict):
         >>> br == ('Fox-Epstein', 'Ravella') or br == ('Ravella', 'Fox-Epstein')
         True
     """
-    return (..., ...)
+
+    def compare2list(x,y):
+        temp = 0
+        for z,x in list(zip(x,y)):
+            if z != x:
+                temp += 1
+        return temp
+    tmplist = [(x,y) for (i,x) in enumerate(voting_dict) for (j,y) in enumerate(voting_dict) if j>i]
+    scorelist = [compare2list(voting_dict[q],voting_dict[w]) for q,w in tmplist]
+    return (tmplist[scorelist.index(max(scorelist))])
+
 

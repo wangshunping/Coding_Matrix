@@ -151,11 +151,13 @@ def scalar_mul(v, alpha):
     >>> u == Vec({'x','y','z','w'},{'x':1,'y':2,'z':3,'w':4})
     True
     """
+    tmp = Vec.copy(v)
     if alpha == 0:
-        v.f = {}
+        tmp.f = {}
     else:
         for x in v.f:
-            v.f[x] *=alpha
+            tmp.f[x] *=alpha
+    return tmp
 
 def neg(v):
     """
